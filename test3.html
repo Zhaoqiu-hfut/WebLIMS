@@ -1,0 +1,123 @@
+<head>
+    <!-- Numeric.js -->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>-->
+    <!-- Plotly.js -->
+<!--    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
+    <script src="js/plotly-latest.min.js"></script>
+    <script src="js/Numeral-js/min/numeral.min.js"></script>
+    <script src="js/math.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+<!-- Plotly chart will be drawn inside this DIV -->
+<div id="myDiv"></div>
+<script>
+    /* JAVASCRIPT CODE GOES HERE */
+    //number of spiral loops
+    // var nspiral = 2;
+    // angle
+    // var th = numeric.linspace(((-Math.PI) / 13), (2 * Math.PI * nspiral), 1000);
+
+    //Empty Value Containers
+    var xValues = [];
+    var yValues = [];
+    var yShift = [];
+    var finalX = [];
+    var finalY = [];
+
+    //spiral
+    // for(var i = 0; i <th.length; i++){
+    //     var a = 1.120529;
+    //     var b = 0.306349;
+    //     var r = a * Math.exp((-b) * th[i]);
+    //     var xResult = (r * Math.cos(th[i]));
+    //     var yResult = (r * Math.sin(th[i]));
+    //     xValues.push(xResult);
+    //     yValues.push(yResult);
+    // }
+
+    // function getMaxOfArray(numArray) {
+    //     return Math.max.apply(null, numArray);
+    // }
+    //
+    // function getMinOfArray(numArray) {
+    //     return Math.min.apply(null, numArray);
+    // }
+    //
+    // //Shift spiral north so that it is centered
+    // var yShift = (1.6 - (getMaxOfArray(yValues) - getMinOfArray(yValues))) / 2;
+
+    // var spiralTrace = {
+    //     x: xValues.map(function(xi) { return -(xi) + xValues[0]; }),
+    //     y: yValues.map(function(yi) { return yi - yValues[0] + yShift; }),
+    //     type: 'scatter',
+    //     line: {
+    //         color: 'white',
+    //         width: 3
+    //     }
+    // };
+
+    //Build the rectangles as a heatmap and specify the edges of the heatmap squares
+    var phi = 1;
+    // var xe = [0, 1, (1 + (1 / Math.pow(phi,4))), 1 + (1 / Math.pow(phi,3)), phi];
+    // var ye = [0, (1 / Math.pow(phi,3)), (1 / Math.pow(phi,3)) + (1 / Math.pow(phi,4)), (1 / Math.pow(phi,2)), 1];
+    // var xe = [0, 1, 2, 3, 4, 5];
+    // var ye = [0, 1, 2, 3, 4, 5];
+    // var xe = math.range(0, 10);
+    // var ye = math.range(0, 10);
+    var xe = Array.from(new Array(100).keys()).slice(0);
+    var ye = xe;
+    // var zValues = math.ones(10, 10);
+    // zValues = math.sin(zValues);
+    var zValues = [
+        [13, 3, 3, 5, 2],
+        [13, 2, 3, 5, 15],
+        [13, 10, 11, 12, 20],
+        [13, 8, 8, 8, 7],
+        [1, 8, 17, 8, 7]
+    ];
+    zValues = math.sin(xe);
+
+    var hm = {
+        x: xe,
+        // y: ye.map(function(yi) { return yi + yShift; }),
+        y: ye,
+        z: zValues,
+        type: 'heatmap',
+        colorscale: 'Viridis',
+        zsmooth: 'best'
+    };
+
+    var axisTemplate = {
+        range: [0, 100],
+        autorange: false,
+        showgrid: false,
+        zeroline: false,
+        showticklabels: false,
+        ticks: ''
+    };
+
+    // var data = [spiralTrace, hm];
+    var data = [hm];
+
+    var layout = {
+        title: 'Heatmap with Unequal Block Sizes',
+        margin: {
+            t: 100,
+            r: 100,
+            b: 100,
+            l: 100
+        },
+        xaxis: axisTemplate,
+        yaxis: axisTemplate,
+        showlegend: false,
+        width: 900,
+        height: 900,
+        autosize: false
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+
+        

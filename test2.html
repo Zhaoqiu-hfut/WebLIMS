@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+<body>
+<script>
+    var test;
+    test = d3.dsv(",", "H:/endnote/MAPPING%20-%20%E5%89%AF%E6%9C%AC.csv", function(d) {
+
+        return {
+            // year: new Date(+d.Year, 0, 1), // convert "Year" column to Date
+            // make: d.Make,
+            // model: d.Model,
+            // length: +d.Length // convert "Length" column to number
+            time: +d.Time1
+        };
+    }).then(function(data) {
+        // return data
+        // for(var i=0; i<data.length; i++){
+        //     var year = data[i].year
+        //     console.log(year);
+        // }
+        console.log(data);
+    });
+    // console.log(data.length)
+
+    // console.log(test);
+    // console.log(test[0]["Year"]);
+
+</script>
+<div id="myDiv"></div>
+</body>
+</html>

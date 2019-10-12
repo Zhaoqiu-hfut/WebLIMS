@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+<body>
+<input type="file" id="file_input" accept=".csv" />
+<div id="output_field"></div>
+
+<div id="chart"></div>
+<script>
+    function handleFileSelect(evt) {
+        var file = evt.target.files[0];
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {
+                drawChart(e.target.result);
+            };
+        })(file);
+
+        reader.readAsDataURL(file);
+    }
+
+    document.getElementById('file_input').addEventListener('change', handleFileSelect, false);
+
+    function drawChart(url) {
+
+        // d3.csv(url, function(error, dataset) { // NEW
+        //     dataset.forEach(function(d) { // NEW
+        //         d.count = +d.count; // NEW
+        //     }); // NEW
+
+            d3.dsv(",", url, function(d) {
+
+                return {
+                    // year: new Date(+d.Year, 0, 1), // convert "Year" column to Date
+                    // make: d.Make,
+                    // model: d.Model,
+                    // length: +d.Length // convert "Length" column to number
+                    time: d.Timestamp
+                };
+            }).then(function(data) {
+                // return data
+                // for(var i=0; i<data.length; i++){
+                //     var year = data[i].year
+                //     console.log(year);
+                // }
+                console.log(data);
+            });
+
+        }
+
+</script>
+</body>
+</html>
